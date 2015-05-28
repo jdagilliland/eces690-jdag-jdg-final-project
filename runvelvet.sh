@@ -41,8 +41,8 @@ mkdir -p "$COLLECTDATADIR"
 KMER=15
 
 # Download the requisite data.
-cp $RAWPATH/*.fastq.gz $INDATADIR
-velveth $OUTDATADIR $KMER -fastq.gz -longPaired $INDATADIR/*.fastq.gz
+cp $RAWPATH/*.fastq $INDATADIR
+velveth $OUTDATADIR $KMER -fastq -longPaired $INDATADIR/*.fastq
 
 # Clean up, clean up, everybody clean up.
 mv $OUTDATADIR/* $COLLECTDATADIR/
