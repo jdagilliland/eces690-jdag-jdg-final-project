@@ -30,9 +30,9 @@ module load python/2.7-current
 RAWPATH=$PROJPATH/data/rawread
 INDATADIR="${TMP}/in-data"
 mkdir -p "$INDATADIR"
-OUTDATADIR="${TMP}/idba_ud-out"
+OUTDATADIR="${TMP}/idba_trans-out"
 mkdir -p "$OUTDATADIR"
-COLLECTDATADIR="$PROJPATH/data/idba_ud-out"
+COLLECTDATADIR="$PROJPATH/data/idba_trans-out"
 mkdir -p "$COLLECTDATADIR"
 
 # Download the requisite data.
