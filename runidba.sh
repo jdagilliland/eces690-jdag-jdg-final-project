@@ -40,7 +40,7 @@ cp $RAWPATH/*merge*.fasta $INDATADIR
 # Assemble the reads *de novo*.
 idba_tran \
 	--num_threads 16 \
-	-l $INDATADIR/*merge*.fasta \
+	-r $INDATADIR/*merge*.fasta \
 	-o $OUTDATADIR
 
 # Clean up, clean up, everybody clean up.
