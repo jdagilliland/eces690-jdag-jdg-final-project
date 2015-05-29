@@ -42,16 +42,17 @@ mkdir -p "$COLLECTDATADIR"
 # KMER=15
 
 # Download the requisite data.
-ls $RAWPATH/*.fastq
+# ls $RAWPATH/*.fastq
 # cp $RAWPATH/*.fastq $INDATADIR
 # ls $INDATADIR/*.fastq
 # velveth $OUTDATADIR $KMER -fastq.gz -longPaired $INDATADIR/*.fastq.gz
-python $OASESPATH/oases_pipeline.py -m 21 -M 25 -o $OUTDATADIR/ \
-	-d  -longPaired $RAWPATH/*.fastq  \
-	-p  -fastq
+# Enumerate the relevant reads
+readfiles=$(ls $RAWPATH/*.fastq)
+python $OASESPATH/oases_pipeline.py -m 21 -M 27 -o $OUTDATADIR/ \
+	-d " -fastq -longPaired $readfiles "
 
 # Clean up, clean up, everybody clean up.
 ls -l $OUTDATADIR
-mv $OUTDATADIR/* $COLLECTDATADIR/
-rmdir $OUTDATADIR
+rsync -ruv $OUTDATADIR/* $COLLECTDATADIR
+rm -rf $OUTDATADIR
 
