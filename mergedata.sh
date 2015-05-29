@@ -36,7 +36,7 @@ mergedreads=(${mergedreads//fastq/fasta})
 # echo $forwardreads
 # echo $reversereads
 # echo $mergedreads
-i=1
+i=0
 for forw in "${forwardreads[@]}"
 do :
 	echo $i
