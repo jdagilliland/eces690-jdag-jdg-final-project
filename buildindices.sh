@@ -31,7 +31,7 @@ module load python/2.7-current
 # Set up variables to keep organized.
 IDBAPATH="$PROJPATH/data/idba_trans-out/transcript-60.fa"
 IDBAINDEXNAME="idba-assembly"
-REFPATH=$(ls -m $PROJPATH/refgen/* | sed -e 's/, /,/g')
+REFPATH=$(ls -m $PROJPATH/refgen/* | sed -e 's/,\w*/,/g' |tr -d '\n')
 REFINDEXNAME="ref-genomes"
 INDEXDIR="${TMP}/index"
 mkdir -p "$INDEXDIR"
