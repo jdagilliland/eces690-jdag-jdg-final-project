@@ -40,7 +40,7 @@ mkdir -p "$COLLECTDATADIR"
 
 # Assemble the reads *de novo*.
 bowtie2-build $IDBAPATH $INDEXDIR/$IDBAINDEXNAME
-bowtie2-build $REFPATH $INDEXDIR/$REFINDEXNAME
+bowtie-build $REFPATH $INDEXDIR/$REFINDEXNAME
 
 # Clean up, clean up, everybody clean up.
 mv $INDEXDIR/* $COLLECTDATADIR/
