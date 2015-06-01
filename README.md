@@ -12,3 +12,6 @@ following [script](buildindices.sh), and then align reads to the assembled
 transcriptome as [follows](bowtie-align.sh).
 After alignment, we used eXpress to quantify expression levels for each
 transcript in our transcriptome as [such](run-express.sh).
+Once we have quantified each transcript, we are in a position to use the
+edgeR package for R to check for differential gene
+[expression](deg-analysis.r).
