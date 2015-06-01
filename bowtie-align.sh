@@ -34,7 +34,7 @@ INDEXNAME="idba-assembly"
 INDEXDIR="$PROJPATH/data/index"
 TMPDIR="${TMP}/map"
 mkdir -p "$TMPDIR"
-IDBADIR="$PROJPATH/idba-mapped"
+IDBADIR="$PROJPATH/idba-mapped-better"
 mkdir -p "$IDBADIR"
 
 # Align reads using bowtie2
@@ -47,6 +47,8 @@ do :
 	# echo $forwardreadsstring
 	bowtie2 \
 		-p 64 \
+		-a \
+		-X 300 \
 		-x "$INDEXDIR/$INDEXNAME" \
 		-1 "$forwardreadsstring" \
 		-2 "$reversereadsstring" \
