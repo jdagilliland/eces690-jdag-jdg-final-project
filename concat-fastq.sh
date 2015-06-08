@@ -35,11 +35,11 @@ mkdir -p "$INDATADIR"
 echo 'Concatenating fwd reads...'
 cat $RAWPATH/*R1*.fastq > $INDATADIR/fwd.fastq
 echo 'Converting fwd reads to fasta...'
-fq2fa $INDATADIR/fwd.fastq $INDATADIR/fwd.fasta
+fq2fa --filter $INDATADIR/fwd.fastq $INDATADIR/fwd.fasta
 echo 'Concatenating rev reads...'
 cat $RAWPATH/*R2*.fastq > $INDATADIR/rev.fastq
 echo 'Converting rev reads to fasta...'
-fq2fa $INDATADIR/rev.fastq $INDATADIR/rev.fasta
+fq2fa --filter $INDATADIR/rev.fastq $INDATADIR/rev.fasta
 
 # Clean up, clean up, everybody clean up.
 mv $INDATADIR/* $RAWPATH/
