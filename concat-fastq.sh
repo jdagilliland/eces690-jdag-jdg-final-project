@@ -43,4 +43,4 @@ fq2fa $INDATADIR/rev.fastq $INDATADIR/rev.fasta
 
 # Clean up, clean up, everybody clean up.
 mv $INDATADIR/* $RAWPATH/
-rmdir $OUTDATADIR
+rmdir $INDATADIR
