@@ -3,7 +3,7 @@
 #$ -cwd
 #$ -M jdg323@drexel.edu
 #$ -P nsftuesPrj
-#$ -pe openmpi_ib 16
+#$ -pe openmpi_ib 64
 #$ -l h_rt=24:00:00
 #$ -l h_vmem=16G
 ##$ -pe shm 32-64 #for parallel processing
@@ -30,16 +30,16 @@ module load python/2.7-current
 RAWPATH=$PROJPATH/data/rawread
 INDATADIR="${TMP}/in-data"
 mkdir -p "$INDATADIR"
-OUTDATADIR="${TMP}/idba_trans-out"
+OUTDATADIR="${TMP}/idba_ud-out"
 mkdir -p "$OUTDATADIR"
-COLLECTDATADIR="$PROJPATH/data/idba_trans-out"
+COLLECTDATADIR="$PROJPATH/data/idba_ud-out"
 mkdir -p "$COLLECTDATADIR"
 
 # Download the requisite data.
 cp $RAWPATH/*merge*.fasta $INDATADIR
 # Assemble the reads *de novo*.
-idba_tran \
-	--num_threads 16 \
+idba_ud \
+	--num_threads 64 \
 	-r $INDATADIR/*merge*.fasta \
 	-o $OUTDATADIR
 
