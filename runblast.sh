@@ -31,5 +31,10 @@ module load ncbi-blast/gcc/64/2.2.30
 DATAPATH=$PROJPATH/data
 
 # Perform blast on differentially expressed genes.
-blastn -query $DATAPATH/degenes.fa -out $DATAPATH/degenes-id.txt \
-	-remote -db nr
+dequeries=($(ls *-up.fa *-dn.fa))
+for query in "${dequeries[@]}"
+do :
+	outfile="${query%%.*}.txt"
+	blastn -query $query -out $outfile \
+		-remote -db nr
+done
