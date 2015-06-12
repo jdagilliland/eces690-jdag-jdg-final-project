@@ -34,10 +34,14 @@ for (i in 1:length(id)) {
     fnames[i] <- fname
 }
 print('Loading expression data...')
+# Column 2 contains transcript IDs, and column 8 contains effective counts.
 expdata <- readDGE(fnames, columns=c(2, 8), group=groups, labels=id)
 print('Done!')
 
 # Filter the expression data to remove low expression transcripts.
+# We elected not to filter expression data by expression level because we
+# found it removed too many significantly differentially expressed
+# transcripts.
 # keep <- rowSums(cpm(expdata)>10) >= 16
 # expdata <- expdata[keep,]
 # print('We kept this many transcripts which were reasonably expressed...')
@@ -48,7 +52,7 @@ expdata <- calcNormFactors(expdata)
 expdata <- estimateCommonDisp(expdata)
 expdata <- estimateTagwiseDisp(expdata)
 
-# Make multidimensional scaling plot.
+# Make multidimensional scaling plots.
 png('mdsplot-sample.png', 640, 480)
 plotMDS(expdata, main="MDS plot of effective counts by sample",
         labels=colnames(expdata$counts))
@@ -82,7 +86,10 @@ dev.off()
 # Set FDR cutoff of 0.05.
 fdr.cutoff = 0.05
 
-# # Try exact tests between pairs
+# Try exact tests between pairs.
+# However, we decided that an exact test using only two groups was
+# inadequate in our design to control for batch effects, see the below GLM
+# approach.
 # print('Performing exact test')
 # et <- exactTest(expdata, pair=c('H', 'P'))
 # print('Top tags for exact test between control diet and pollen')
@@ -121,11 +128,13 @@ print(summary(degP))
 print(summary(degU))
 print(summary(degC))
 
+# Identify genes that were up or downregulated.
 genenames.C.up <- rownames(expdata)[degC == 1]
 genenames.C.dn <- rownames(expdata)[degC == -1]
 genenames.U.up <- rownames(expdata)[degU == 1]
 genenames.U.dn <- rownames(expdata)[degU == -1]
 
+# Print out regulated transcript lists to files for downstream analysis.
 cat(genenames.C.up, sep='\n', file='cellobiose-up.list')
 cat(genenames.C.dn, sep='\n', file='cellobiose-dn.list')
 cat(genenames.U.up, sep='\n', file='urea-up.list')
