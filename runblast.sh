@@ -3,7 +3,7 @@
 #$ -cwd
 #$ -M jdg323@drexel.edu
 #$ -P nsftuesPrj
-#$ -pe openmpi_ib 64
+#$ -pe openmpi_ib 1
 #$ -l h_rt=24:00:00
 #$ -l h_vmem=16G
 ##$ -pe shm 32-64 #for parallel processing
@@ -11,6 +11,8 @@
 # select the queue all.q, using hostgroup @intelhosts
 #$ -q all.q@@amdhosts
 
+### WARNING: this script only works on a head node, not on a compute node.
+# I guess this is because of the firewall that safeguards the cluster.
 PATH=/mnt/HA/groups/nsftuesGrp/.local/bin:$PATH
 PATH=/mnt/HA/groups/nsftuesGrp/data/gilliland-guest/bin:$PATH
 PROJPATH=/mnt/HA/groups/nsftuesGrp/data/gilliland-guest
@@ -22,11 +24,12 @@ module load proteus
 module load sge/univa
 module load gcc/4.8.1
 
-module add ncbi-blast/gcc/64/2.2.30
+module load ncbi-blast/gcc/64/2.2.30
 # ---- Keep the foregoing
 
 # Set up variables to keep organized.
 DATAPATH=$PROJPATH/data
 
 # Perform blast on differentially expressed genes.
-blastn -query $DATAPATH/degenes.fa -out $DATAPATH/degenes-id.txt
+blastn -query $DATAPATH/degenes.fa -out $DATAPATH/degenes-id.txt \
+	-remote -db nr
