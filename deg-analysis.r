@@ -49,18 +49,34 @@ expdata <- estimateCommonDisp(expdata)
 expdata <- estimateTagwiseDisp(expdata)
 
 # Make multidimensional scaling plot.
-pdf('mdsplot.pdf', height=7, width=7)
-plotMDS(expdata, main="MDS plot of effective counts",
+png('mdsplot-sample.png', 640, 480)
+plotMDS(expdata, main="MDS plot of effective counts by sample",
         labels=colnames(expdata$counts))
 dev.off()
+png('mdsplot-diet.png', 640, 480)
+plotMDS(expdata, main="MDS plot of effective counts by diet",
+        labels=groups)
+dev.off()
+png('mdsplot-batch.png', 640, 480)
+plotMDS(expdata, main="MDS plot of effective counts by batch",
+        labels=batch)
+dev.off()
 # Make biological coefficient of variation plot.
-pdf('bcvplot.pdf', height=7, width=7)
+# pdf('bcvplot.pdf', height=7, width=7)
+png('bcvplot.png', 640, 480)
 plotBCV(expdata)
 dev.off()
 # Make heatmap.
 cpm_log <- cpm(expdata, log = TRUE)
-pdf('correlation-heatmap.pdf', height=7, width=7)
+# pdf('correlation-heatmap.pdf', height=7, width=7)
+png('correlation-heatmap-sample.png', 640, 480)
 heatmap(cor(cpm_log))
+dev.off()
+png('correlation-heatmap-diet.png', 640, 480)
+heatmap(cor(cpm_log), labRow=groups, labCol=groups)
+dev.off()
+png('correlation-heatmap-batch.png', 640, 480)
+heatmap(cor(cpm_log), labRow=batch, labCol=batch)
 dev.off()
 
 # Set FDR cutoff of 0.05.
