@@ -1,3 +1,6 @@
 core.*
 *.e*
 *.o*
+*.pdf
+*.list
+rbuff.r
