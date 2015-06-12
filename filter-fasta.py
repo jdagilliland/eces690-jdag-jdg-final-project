@@ -1,9 +1,10 @@
-from Bio import SeqIO
-
+#!/usr/bin/env python
 '''
 The sole purpose of this script is to select sequences from a FASTA file
 based on a newline separated list of IDs provided in another file.
 '''
+
+from Bio import SeqIO
 
 def read_fasta_file(fname_fasta):
     '''
